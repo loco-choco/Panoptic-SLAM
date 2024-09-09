@@ -168,7 +168,7 @@ if(realsense2_FOUND)
 endif()
 
 install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
-install(TARGETS rgdb_tum rgdb_realsense_D435i DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+install(FILES rgdb_tum rgdb_realsense_D435i DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
 
 
