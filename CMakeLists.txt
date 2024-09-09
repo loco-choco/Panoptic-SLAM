@@ -12,8 +12,10 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}  -Wall   -O3")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall   -O3")
 set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -march=native")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native")
-#set(CUDA_TOOLKIT_ROOT_DIR /usr/local/cuda-11.4)   # change for cuda version
-set(CUDA_TOOLKIT_ROOT_DIR /usr/local/cuda-11.6)   # change for cuda version
+
+find_package(CUDA)
+message("CUDA DIR: ${CUDA_TOOLKIT_ROOT_DIR}")
+message(${CUDA_LIBRARIES})
 
 # Python C API
 find_package (Python3 COMPONENTS Development NumPy)
@@ -48,8 +50,7 @@ find_package(OpenCV 4.4)
       message(FATAL_ERROR "OpenCV > 4.4 not found.")
    endif()
 
-MESSAGE("OPENCV VERSION:")
-MESSAGE(${OpenCV_VERSION})
+MESSAGE("OPENCV VERSION: ${OpenCV_VERSION}")
 
 find_package(Eigen3 3.1.0 REQUIRED)
 find_package(Pangolin REQUIRED)
@@ -66,7 +67,6 @@ ${Python3_INCLUDE_DIRS}
 ${Python3_NumPy_INCLUDE_DIRS}
 )
 
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 
 add_library(${PROJECT_NAME} SHARED
 src/System.cc
@@ -132,13 +132,14 @@ include/PanopticNet.h
 include/Panoptic_Struct.h)
 
 add_subdirectory(Thirdparty/g2o)
+add_subdirectory(Thirdparty/DBoW2)
 
 target_link_libraries(${PROJECT_NAME}
 ${OpenCV_LIBS}
 ${EIGEN3_LIBS}
 ${Pangolin_LIBRARIES}
-${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2/lib/libDBoW2.so
-${PROJECT_SOURCE_DIR}/Thirdparty/g2o/lib/libg2o.so
+DBoW2
+g2o
 ${Python3_LIBRARIES}
 -lboost_serialization
 -lcrypto
@@ -156,8 +157,6 @@ endif()
 
 
 # RGB-D examples
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR})
-
 add_executable(rgbd_tum
         Examples/RGB-D/rgbd_tum.cc)
 target_link_libraries(rgbd_tum ${PROJECT_NAME})
