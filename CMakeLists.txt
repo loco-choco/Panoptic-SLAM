@@ -16,15 +16,13 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native")
 set(CUDA_TOOLKIT_ROOT_DIR /usr/local/cuda-11.6)   # change for cuda version
 
 # Python C API
-find_package(PythonLibs REQUIRED)
-if (NOT PythonLibs_FOUND)
+find_package (Python3 COMPONENTS Development NumPy)
+if (NOT Python3_FOUND)
     message(FATAL_ERROR "PYTHON LIBS not found.")
 else()
     message("PYTHON LIBS were found!")
-    message("PYTHON LIBS DIRECTORY: " ${PYTHON_LIBRARY})
+    message("PYTHON INCLUDE DIRECTORY: " ${Python3_INCLUDE_DIRS})
 endif()
-set(PYTHON_INCLUDE_DIRS ${PYTHON_INCLUDE_DIRS} /usr/local/lib/python3.8/dist-packages/numpy/core/include/numpy)
-#set(PYTHON_INCLUDE_DIRS ${PYTHON_INCLUDE_DIRS} /usr/local/lib/python3.6/dist-packages/numpy/core/include/numpy)
 
 
 # Check C++11 or C++0x support
@@ -64,11 +62,8 @@ ${PROJECT_SOURCE_DIR}/include/CameraModels
 ${PROJECT_SOURCE_DIR}/Thirdparty/Sophus
 ${EIGEN3_INCLUDE_DIR}
 ${Pangolin_INCLUDE_DIRS}
-# change python version:
-/usr/include/python3.8/
-/usr/lib/python3.8/dist-packages/numpy/core/include/numpy/
-#/usr/include/python3.6/
-#/usr/lib/python3.6/dist-packages/numpy/core/include/numpy/
+${Python3_INCLUDE_DIRS}
+${Python3_NumPy_INCLUDE_DIRS}
 )
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
@@ -144,8 +139,7 @@ ${EIGEN3_LIBS}
 ${Pangolin_LIBRARIES}
 ${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2/lib/libDBoW2.so
 ${PROJECT_SOURCE_DIR}/Thirdparty/g2o/lib/libg2o.so
-/usr/lib/x86_64-linux-gnu/libpython3.8.so
-#/usr/lib/x86_64-linux-gnu/libpython3.6m.so
+${Python3_LIBRARIES}
 -lboost_serialization
 -lcrypto
 )
