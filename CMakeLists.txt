@@ -167,8 +167,8 @@ if(realsense2_FOUND)
     target_link_libraries(rgbd_realsense_D435i ${PROJECT_NAME})
 endif()
 
-install(TARGET ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
-install(TARGET rgdb_tum rgdb_realsense_D435i DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
+install(TARGETS rgdb_tum rgdb_realsense_D435i DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
 
 
