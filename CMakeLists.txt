@@ -160,16 +160,16 @@ endif()
 add_executable(rgbd_tum
         Examples/RGB-D/rgbd_tum.cc)
 target_link_libraries(rgbd_tum ${PROJECT_NAME})
-install(TARGETS rgdb_tum DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+install(TARGETS rgdb_tum)
 
 if(realsense2_FOUND)
     add_executable(rgbd_realsense_D435i
             Examples/RGB-D/rgbd_realsense_D435i.cc)
     target_link_libraries(rgbd_realsense_D435i ${PROJECT_NAME})
-    install(TARGETS rgbd_realsense_D435i DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+    install(TARGETS rgbd_realsense_D435i)
 endif()
 
-install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
+install(TARGETS ${PROJECT_NAME})
 
 
 
