@@ -38,7 +38,7 @@ if(NOT OpenCV_FOUND)
    endif()
 endif()
 
-set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+MESSAGE(${OpenCV_VERSION})
 
 include_directories(${OpenCV_INCLUDE_DIRS})
 add_library(DBoW2 SHARED ${SRCS_DBOW2} ${SRCS_DUTILS})
