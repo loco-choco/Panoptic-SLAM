@@ -156,20 +156,19 @@ if(realsense2_FOUND)
 endif()
 
 
-# RGB-D examples
-add_executable(rgbd_tum
-        Examples/RGB-D/rgbd_tum.cc)
-target_link_libraries(rgbd_tum ${PROJECT_NAME})
-install(TARGETS rgdb_tum)
-
-if(realsense2_FOUND)
-    add_executable(rgbd_realsense_D435i
-            Examples/RGB-D/rgbd_realsense_D435i.cc)
-    target_link_libraries(rgbd_realsense_D435i ${PROJECT_NAME})
-    install(TARGETS rgbd_realsense_D435i)
-endif()
 
 install(TARGETS ${PROJECT_NAME})
+
+# RGB-D examples
+add_executable(rgbd_tum Examples/RGB-D/rgbd_tum.cc)
+target_link_libraries(rgbd_tum ${PROJECT_NAME})
+install(TARGETS rgbd_tum)
+
+if(realsense2_FOUND)
+    add_executable(rgbd_realsense_D435i Examples/RGB-D/rgbd_realsense_D435i.cc)
+    target_link_libraries(rgbd_realsense_D435i ${PROJECT_NAME})
+    install(TARGETS rgbd_realsense_D435i RUNTIME)
+endif()
 
 
 
