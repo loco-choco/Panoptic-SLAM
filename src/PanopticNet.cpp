@@ -608,7 +608,7 @@ void PanopticNet::SetTracker(Tracking *pTracker)
 
 void PanopticNet::Run()
 {
-    PyEval_SaveThread();
+    //PyEval_SaveThread();
     PyGILState_STATE gstate;
     gstate = PyGILState_Ensure();
     signal(SIGINT, signal_callback_handler);
